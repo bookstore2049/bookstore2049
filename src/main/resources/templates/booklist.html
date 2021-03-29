@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      lang="en">
+<head>
+    <title>List of Books</title>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+</head>
+
+<body>
+    <h1> B O O K S T O R E </h1>
+
+<div>
+    <h3 th:inline="text">Welcome, [[${#httpServletRequest.remoteUser}]]</h3>
+</div>
+
+<div class="col-md-4" style="padding:20px 0">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Author</th>
+            <th scope="col">Title</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Year</th>
+            <th scope="col">Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each=" book : ${ books }">
+            <th style="text-align: left" scope="row" th:text="${ book.getAuthor() } "></th>
+            <td style="text-align: left" th:text="${ book.getTitle() }"></td>
+            <td style="text-align: left" th:text="${ book.getIsbn()  }"></td>
+            <td style="text-align: left" th:text="${ book.getYear()  }"></td>
+            <td style="text-align: left" th:text="${ book.getCategory() }"></td>
+
+            <td><a th:href="@{/edit/{id}(id=${ book.id })}">Edit</a></td>
+            <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" th:href="@{/delete/{id}(id=${ book.id })}">Delete</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/addbook" class="btn btn-success">Add a Book</a>
+
+</body>
+</html>

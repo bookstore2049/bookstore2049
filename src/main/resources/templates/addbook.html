@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <style>
+        form         { display: table;}
+        div          { display: table-row;}
+        label, input { display: table-cell; margin-bottom: 10px; }
+        label        { padding-right: 10px; }
+    </style>
+    <meta charset="UTF-8">
+    <title>Add a new Book</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+</head>
+<body>
+<h1>Add a new Book</h1>
+<form th:object="${book}"
+      th:action="@{/save}"
+      action="#"
+      method="post">
+
+    <div>
+    <label>Enter title:
+        <input type="text" id="title" name="title" th:field="*{title}" required/>
+    </label>
+    </div>
+
+    <div>
+    <label>Enter author:
+        <input type="text" id="author" name="author" th:field="*{author}" required/>
+    </label>
+    </div>
+
+    <div>
+    <label>Enter year:
+        <input type="text" id="year" name="year" th:field="*{year}" required/>
+    </label>
+    </div>
+
+    <div>
+    <label>Enter isbn:
+        <input type="text" id="isbn" name="isbn" th:field="*{isbn}" required/>
+    </label>
+    </div>
+
+    <div>
+    <label>Enter price:
+        <input type="text" id="price" name="price" th:field="*{price}" required/>
+    </label>
+    </div>
+
+    <div>
+        <label>Enter category:
+            <select id="genres" th:field="*{category}" >
+                <option th:each="c: ${ categories }" th:value="${ c.id }" th:text="${c.name}" ></option>
+            </select>
+        </label>
+    </div>
+
+
+    <input type="submit" value="Submit"/>
+</form>
+
+</body>
+</html>
